@@ -1,51 +1,50 @@
 #include<iostream>
-#include<math.h>
+#include<cmath>
 #include<iomanip>
 using namespace std;
 
 int main(){
-    double weight ,height;
-    cout<<"Enter weight in (kg): "<<endl;
-    cin>>weight;
-    cout<<"Enter height in (m): "<<endl;
-    cin>>height;
-    cout<<"choose units (1=kg/m,2lb/in): ";
+    double weight, height;
     int choice;
-    cout<<choice;
-    if(choice==2){
-        weight=height*0.453592;
-        height=height*0.0254;
-        cout<<"\n convertung metric for bmi calculatioin.....\n";
-    }
-    double bmi=weight/(height*height);
-    cout<<fixed<<setprecision(1);
-    cout<<"Your bmi: "<<bmi<<"-category:"<<endl;
+    
+    cout << "Choose units (1=kg/m, 2=lb/in): ";
+    cin >> choice;  // FIXED: Capture user choice
 
-    string category_name;
-    if(bmi<18.5){
-        category_name="underweight";
+    if(choice == 2){
+        double lb, inches;
+        cout << "Enter weight (lb): ";
+        cin >> lb;
+        cout << "Enter height (in): ";
+        cin >> inches;
+        weight = lb * 0.453592;
+        height = inches * 0.0254;
+        cout << "\nConverting to metric...\n";
     }
-    else if (bmi<25){
-        category_name="normal weight";
+    else {
+        cout << "Enter weight (kg): ";
+        cin >> weight;
+        cout << "Enter height (m): ";
+        cin >> height;
+    }
 
-    }
-    else if(bmi<30){
-        category_name="overweight";
-    }
-    else{
-        cout<<"obese( acessive fat)"<<endl;
-    }
-    cout<<category_name;
-    if(category_name=="underweight"){
-        cout<<"nutrition tip: increase calories with intake of healthy fat"<<endl;
-    }
-    else if(category_name=="obese(acessive fat"){
-        cout<<"health tip: consulting a nutritionist for a personalised plan"<<endl;
-    }
-    else if(category_name=="overweight"){
-        cout<<"\n Great job maintain your healthy liferstyle!!!";
-    }
-    else if (category_name=="overweight"){
-        cout<<"/nHealth tip: Incorporate more on physical activity and balance diet"<<endl;
-    }
+    double bmi = weight / pow(height, 2);
+    cout << fixed << setprecision(1);
+    cout << "Your BMI: " << bmi << " - Category: ";
+
+    string category;
+    if(bmi < 18.5) category = "Underweight";
+    else if (bmi < 25) category = "Normal";
+    else if (bmi < 30) category = "Overweight";
+    else category = "Obese";
+    cout << category << endl;
+
+    // Health tips
+    if(category == "Underweight")
+        cout << "Tip: Increase calories with healthy fats\n";
+    else if(category == "Obese")
+        cout << "Tip: Consult a nutritionist\n";
+    else if(category == "Overweight")
+        cout << "Tip: Increase physical activity\n";
+
+    return 0;
 }
